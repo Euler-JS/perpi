@@ -3,6 +3,7 @@ import 'package:perpi_app/screens/Favorites/favorite_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:perpi_app/screens/Product/product_display_screen.dart';
 import 'package:perpi_app/screens/Cart/cart_screen.dart';
+import 'package:perpi_app/screens/Profile/profile_screen.dart';
 import 'package:perpi_app/providers/cart_provider.dart';
 import 'package:perpi_app/providers/favorites_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
@@ -240,60 +241,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         );
       },
-    );
-  }
-}
-
-// Placeholder Profile Screen
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          "Perfil",
-          style: TextStyle(
-            color: textPrimary,
-            fontSize: 24,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.person_outline,
-              size: 100,
-              color: textSecondary,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              "Tela de Perfil",
-              style: TextStyle(
-                color: textPrimary,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Em desenvolvimento",
-              style: TextStyle(
-                color: textSecondary,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

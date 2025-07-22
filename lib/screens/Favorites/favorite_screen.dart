@@ -23,6 +23,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         surfaceTintColor: primaryColor,
+        toolbarHeight: 100,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -386,23 +387,23 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Category
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: accentColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      product.category,
-                      style: TextStyle(
-                        color: accentColor,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  //   decoration: BoxDecoration(
+                  //     color: accentColor.withOpacity(0.1),
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  //   child: Text(
+                  //     product.category,
+                  //     style: TextStyle(
+                  //       color: accentColor,
+                  //       fontSize: 10,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
+                  // ),
                   
-                  const SizedBox(height: 6),
+                  // const SizedBox(height: 6),
                   
                   // Product Name
                   Text(
