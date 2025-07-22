@@ -12,33 +12,12 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      appBar: AppBar(
-        backgroundColor: primaryColor,
-        surfaceTintColor: secondaryColor,
-        // toolbarHeight: 100,
-        // elevation: 0,
-        // centerTitle: true,
-        // title: Text(
-        //   "Perfil",
-        //   style: TextStyle(
-        //     fontWeight: FontWeight.w700,
-        //     fontSize: 24,
-        //     color: textPrimary,
-        //   ),
-        // ),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: textPrimary,
-          ),
-        ),
-      ),
+      // Remover o AppBar para integrar tudo no header customizado
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Header com informações do usuário
+              // Header com informações do usuário (agora inclui a seta de voltar)
               _buildUserHeader(context),
               
               const SizedBox(height: 20),
@@ -115,7 +94,6 @@ class ProfileScreen extends StatelessWidget {
                           },
                         ),
                         onTap: () {
-                          // Navegar para tela de favoritos
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => const FavoritesScreen(),
@@ -295,128 +273,128 @@ class ProfileScreen extends StatelessWidget {
           ),
           
           // Conteúdo principal
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  // Header bar com título e menu
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "",
-                        style: TextStyle(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              children: [
+                // Header bar com seta de voltar - AGORA INTEGRADO NO GRADIENTE
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
                           color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
+                          size: 20,
                         ),
-                      ),
-                      Container(
                         padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        // child: IconButton(
-                        //   onPressed: () {},
-                        //   icon: const Icon(
-                        //     Icons.more_vert,
-                        //     color: Colors.white,
-                        //     size: 24,
-                        //   ),
-                        //   padding: EdgeInsets.zero,
-                        //   constraints: const BoxConstraints(),
-                        // ),
                       ),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 40),
-                  
-                  // Foto do usuário com design moderno
-                  Stack(
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        padding: const EdgeInsets.all(4),
+                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.all(8),
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white.withOpacity(0.2),
+                    //     borderRadius: BorderRadius.circular(12),
+                    //   ),
+                    //   child: const Icon(
+                    //     Icons.more_vert,
+                    //     color: Colors.white,
+                    //     size: 24,
+                    //   ),
+                    // ),
+                  ],
+                ),
+                
+                const SizedBox(height: 30),
+                
+                // Foto do usuário com design moderno
+                Stack(
+                  children: [
+                    Container(
+                      width: 120,
+                      height: 120,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white,
+                          image: const DecorationImage(
+                            image: NetworkImage(
+                              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 8,
+                      right: 8,
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: buttonColor,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 20,
-                              offset: const Offset(0, 8),
+                              color: buttonColor.withOpacity(0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
                             ),
                           ],
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                        child: const Icon(
+                          Icons.check,
+                          size: 16,
+                          color: Colors.white,
                         ),
                       ),
-                      Positioned(
-                        bottom: 8,
-                        right: 8,
-                        child: Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: buttonColor,
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 2),
-                            boxShadow: [
-                              BoxShadow(
-                                color: buttonColor.withOpacity(0.4),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.check,
-                            size: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 20),
-                  
-                  // Nome do usuário
-                  const Text(
-                    "João Silva",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
                     ),
+                  ],
+                ),
+                
+                const SizedBox(height: 20),
+                
+                // Nome do usuário
+                const Text(
+                  "João Silva",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
                   ),
-                  
-                  const SizedBox(height: 8),
-                  
-                  // Telefone
-                  Text(
-                    "+258 84 123 4567",
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+                ),
+                
+                const SizedBox(height: 8),
+                
+                // Telefone
+                Text(
+                  "+258 84 123 4567",
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ],
@@ -424,6 +402,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  
   Widget _buildQuickStats(BuildContext context) {
     return Consumer2<CartProvider, FavoritesProvider>(
       builder: (context, cartProvider, favoritesProvider, child) {
