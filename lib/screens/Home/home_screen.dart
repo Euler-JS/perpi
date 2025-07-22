@@ -37,49 +37,92 @@ class HomeScreen extends StatelessWidget {
       ),
   );
   }
-
-  Widget _buildHeader() {
-    return Padding(
+ Widget _buildHeader() {
+    return Container(
       padding: const EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              Icons.apps,
-              color: textPrimary,
-              size: 24,
-            ),
+          // Menu and Logo
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: secondaryColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.menu,
+                  color: textPrimary,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "PERPI",
+                    style: TextStyle(
+                      color: accentColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    "Minimarket",
+                    style: TextStyle(
+                      color: buttonColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              Icons.notifications_outlined,
-              color: textPrimary,
-              size: 24,
-            ),
+          
+          // Notification and Profile
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: secondaryColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.notifications_outlined,
+                  color: textPrimary,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 10),
+              CircleAvatar(
+                radius: 22,
+                backgroundColor: accentColor,
+                child: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                  size: 24,
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
-
-  Widget _buildSearchBar() {
+  
+ Widget _buildSearchBar() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: dividerColor),
       ),
       child: Row(
         children: [
@@ -91,7 +134,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 15),
           Expanded(
             child: Text(
-              "Search...",
+              "Procurar produtos...",
               style: TextStyle(
                 color: textSecondary,
                 fontSize: 16,
@@ -99,14 +142,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: buttonColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(
-              Icons.apps,
-              color: textPrimary,
+            child: const Icon(
+              Icons.tune,
+              color: Colors.white,
               size: 20,
             ),
           ),
