@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:perpi_app/models/product_details.dart';
 import 'package:perpi_app/screens/Common/product_view.dart';
 import 'package:perpi_app/screens/Product/product_detail_screen.dart';
+import 'package:perpi_app/screens/Profile/profile_screen.dart';
 import 'package:perpi_app/screens/constants.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,8 +18,8 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header Section
-              _buildHeader(),
-              
+              _buildHeader(context),
+
               // Search Bar
               _buildSearchBar(),
               
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
       ),
   );
   }
- Widget _buildHeader() {
+ Widget _buildHeader(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       child: Row(
@@ -99,22 +100,32 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: accentColor,
-                child: const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 24,
-                ),
-              ),
+              GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ProfileScreen(),
+      ),
+    );
+  },
+  child: CircleAvatar(
+    radius: 22,
+    backgroundColor: accentColor,
+    child: const Icon(
+      Icons.person,
+      color: Colors.white,
+      size: 24,
+    ),
+  ),
+),
             ],
           ),
         ],
       ),
     );
   }
-  
+
  Widget _buildSearchBar() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),

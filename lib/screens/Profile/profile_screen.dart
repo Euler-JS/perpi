@@ -12,6 +12,28 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        surfaceTintColor: secondaryColor,
+        // toolbarHeight: 100,
+        // elevation: 0,
+        // centerTitle: true,
+        // title: Text(
+        //   "Perfil",
+        //   style: TextStyle(
+        //     fontWeight: FontWeight.w700,
+        //     fontSize: 24,
+        //     color: textPrimary,
+        //   ),
+        // ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: textPrimary,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

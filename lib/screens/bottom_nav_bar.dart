@@ -86,7 +86,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 children: [
                   _buildCartNavItem(),
                   const SizedBox(width: 40),
-                  _buildNavItem(Icons.person_outline, 3),
+                  _buildNavItem(Icons.local_shipping_outlined, 3),
                 ],
               ),
             ],
