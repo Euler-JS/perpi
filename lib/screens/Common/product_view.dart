@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:perpi_app/models/product_details.dart';
+import 'package:perpi_app/providers/cart_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
 import 'package:perpi_app/screens/Product/product_detail_screen.dart';
 
@@ -164,18 +166,6 @@ class ProductView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Category
-                // Text(
-                //   product.category,
-                //   style: TextStyle(
-                //     color: accentColor,
-                //     fontSize: 12,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
-                
-                const SizedBox(height: 4),
-                
                 // Product Name
                 Text(
                   title,
@@ -264,29 +254,46 @@ class ProductView extends StatelessWidget {
                     ),
                     
                     // Add to cart button
-                    Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: product.isAvailable ? buttonColor : textSecondary,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: product.isAvailable ? [
-                          BoxShadow(
-                            color: buttonColor.withOpacity(0.3),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
+                    Consumer<CartProvider>(
+                      builder: (context, cartProvider, child) {
+                        return Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            color: product.isAvailable ? buttonColor : textSecondary,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: product.isAvailable ? [
+                              BoxShadow(
+                                color: buttonColor.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ] : null,
                           ),
-                        ] : null,
-                      ),
-                      child: IconButton(
-                        onPressed: product.isAvailable ? () {} : null,
-                        icon: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        padding: EdgeInsets.zero,
-                      ),
+                          child: IconButton(
+                            onPressed: product.isAvailable ? () {
+                              cartProvider.addToCart(product);
+                              
+                              // Show snackbar confirmation
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("${product.name} adicionado ao carrinho!"),
+                                  backgroundColor: accentColor,
+                                  behavior: SnackBarBehavior.floating,
+                                  duration: const Duration(seconds: 2),
+                                  margin: const EdgeInsets.all(16),
+                                ),
+                              );
+                            } : null,
+                            icon: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            padding: EdgeInsets.zero,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

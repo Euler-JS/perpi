@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:perpi_app/models/product_details.dart';
+import 'package:perpi_app/providers/cart_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -483,88 +485,96 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget _buildBottomBar() {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: cardBackground,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 20,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Botão favorito
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              color: secondaryColor,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: dividerColor),
-            ),
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-              },
-              icon: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? buttonColor : textSecondary,
-                size: 24,
+    return Consumer<CartProvider>(
+      builder: (context, cartProvider, child) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: cardBackground,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 20,
+                offset: const Offset(0, -5),
               ),
-            ),
+            ],
           ),
-          
-          const SizedBox(width: 16),
-          
-          // Botão adicionar ao carrinho
-          Expanded(
-            child: ElevatedButton(
-              onPressed: widget.product.isAvailable ? () {
-                // Implementar adicionar ao carrinho
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("${widget.product.name} adicionado ao carrinho!"),
-                    backgroundColor: accentColor,
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              } : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: widget.product.isAvailable ? buttonColor : textSecondary,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
+          child: Row(
+            children: [
+              // Botão favorito
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: secondaryColor,
                   borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: dividerColor),
                 ),
-                elevation: widget.product.isAvailable ? 8 : 0,
-                shadowColor: buttonColor.withOpacity(0.3),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.shopping_bag_outlined, size: 20),
-                  const SizedBox(width: 8),
-                  Text(
-                    widget.product.isAvailable 
-                      ? "Adicionar ao Carrinho" 
-                      : "Produto Esgotado",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                  },
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? buttonColor : textSecondary,
+                    size: 24,
                   ),
-                ],
+                ),
               ),
-            ),
+              
+              const SizedBox(width: 16),
+              
+              // Botão adicionar ao carrinho
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: widget.product.isAvailable ? () {
+                    // Adicionar ao carrinho com a quantidade selecionada
+                    cartProvider.addToCart(widget.product, quantity: quantity);
+                    
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("${widget.product.name} (${quantity}x) adicionado ao carrinho!"),
+                        backgroundColor: accentColor,
+                        behavior: SnackBarBehavior.floating,
+                        duration: const Duration(seconds: 2),
+                        margin: const EdgeInsets.all(16),
+                      ),
+                    );
+                  } : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.product.isAvailable ? buttonColor : textSecondary,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    elevation: widget.product.isAvailable ? 8 : 0,
+                    shadowColor: buttonColor.withOpacity(0.3),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.shopping_bag_outlined, size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        widget.product.isAvailable 
+                          ? "Adicionar ao Carrinho" 
+                          : "Produto Esgotado",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
