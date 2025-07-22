@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:perpi_app/models/product_details.dart';
 import 'package:perpi_app/providers/cart_provider.dart';
+import 'package:perpi_app/providers/favorites_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -15,13 +16,6 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   int quantity = 1;
-  bool isFavorite = false;
-
-  @override
-  void initState() {
-    super.initState();
-    isFavorite = widget.product.isFav;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,30 +129,49 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           Positioned(
             top: 20,
             right: 20,
-            child: Container(
-              decoration: BoxDecoration(
-                color: isFavorite ? buttonColor : Colors.white.withOpacity(0.9),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 2),
+            child: Consumer<FavoritesProvider>(
+              builder: (context, favoritesProvider, child) {
+                final isFavorite = favoritesProvider.isFavorite(widget.product);
+                
+                return Container(
+                  decoration: BoxDecoration(
+                    color: isFavorite ? buttonColor : Colors.white.withOpacity(0.9),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isFavorite = !isFavorite;
-                  });
-                },
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: isFavorite ? Colors.white : textPrimary,
-                  size: 20,
-                ),
-              ),
+                  child: IconButton(
+                    onPressed: () {
+                      favoritesProvider.toggleFavorite(widget.product);
+                      
+                      // Show snackbar confirmation
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            isFavorite 
+                              ? "${widget.product.name} removido dos favoritos"
+                              : "${widget.product.name} adicionado aos favoritos!",
+                          ),
+                          backgroundColor: isFavorite ? Colors.red.shade600 : Colors.red.shade500,
+                          behavior: SnackBarBehavior.floating,
+                          duration: const Duration(seconds: 2),
+                          margin: const EdgeInsets.all(16),
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: isFavorite ? Colors.white : textPrimary,
+                      size: 20,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           
@@ -485,8 +498,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget _buildBottomBar() {
-    return Consumer<CartProvider>(
-      builder: (context, cartProvider, child) {
+    return Consumer2<CartProvider, FavoritesProvider>(
+      builder: (context, cartProvider, favoritesProvider, child) {
+        final isFavorite = favoritesProvider.isFavorite(widget.product);
+        
         return Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -506,15 +521,29 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: secondaryColor,
+                  color: isFavorite ? buttonColor.withOpacity(0.1) : secondaryColor,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: dividerColor),
+                  border: Border.all(
+                    color: isFavorite ? buttonColor : dividerColor,
+                  ),
                 ),
                 child: IconButton(
                   onPressed: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
+                    favoritesProvider.toggleFavorite(widget.product);
+                    
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          isFavorite 
+                            ? "${widget.product.name} removido dos favoritos"
+                            : "${widget.product.name} adicionado aos favoritos!",
+                        ),
+                        backgroundColor: isFavorite ? Colors.red.shade600 : Colors.red.shade500,
+                        behavior: SnackBarBehavior.floating,
+                        duration: const Duration(seconds: 2),
+                        margin: const EdgeInsets.all(16),
+                      ),
+                    );
                   },
                   icon: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border,

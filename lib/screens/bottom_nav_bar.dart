@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:perpi_app/screens/Favorites/favorite_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:perpi_app/screens/Product/product_display_screen.dart';
 import 'package:perpi_app/screens/Cart/cart_screen.dart';
 import 'package:perpi_app/providers/cart_provider.dart';
+import 'package:perpi_app/providers/favorites_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
-import 'package:provider/provider.dart';
 
 import 'Home/home_screen.dart';
 
@@ -21,7 +23,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const HomeScreen(), 
     const ProductDisplayScreen(),
     const CartScreen(),
-    const ProfileScreen(), // Placeholder for profile
+    const ProfileScreen(),
+    const FavoritesScreen(),
   ];
 
   @override
@@ -73,7 +76,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 children: [
                   _buildNavItem(Icons.apps_outlined, 1),
                   const SizedBox(width: 40),
-                  _buildNavItem(Icons.favorite_border, 4), // Placeholder index
+                  _buildFavoritesNavItem(),
                 ],
               ),
               
@@ -97,7 +100,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     
     return GestureDetector(
       onTap: () {
-        if (index <= 3) {
+        if (index <= 4) {
           setState(() {
             currentIndex = index;
           });
@@ -160,6 +163,69 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       ),
                       child: Text(
                         cartProvider.itemCount > 99 ? '99+' : '${cartProvider.itemCount}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildFavoritesNavItem() {
+    return Consumer<FavoritesProvider>(
+      builder: (context, favoritesProvider, child) {
+        bool isSelected = currentIndex == 4;
+        
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              currentIndex = 4;
+            });
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(
+                  isSelected ? Icons.favorite : Icons.favorite_border,
+                  color: isSelected ? buttonColor : textSecondary,
+                  size: 28,
+                ),
+                
+                // Favorites count badge
+                if (favoritesProvider.favoritesCount > 0)
+                  Positioned(
+                    top: -8,
+                    right: -8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade500,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.red.withOpacity(0.3),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 20,
+                        minHeight: 20,
+                      ),
+                      child: Text(
+                        favoritesProvider.favoritesCount > 99 ? '99+' : '${favoritesProvider.favoritesCount}',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,

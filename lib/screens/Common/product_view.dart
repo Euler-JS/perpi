@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:perpi_app/models/product_details.dart';
 import 'package:perpi_app/providers/cart_provider.dart';
+import 'package:perpi_app/providers/favorites_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
 import 'package:perpi_app/screens/Product/product_detail_screen.dart';
 
@@ -108,29 +109,52 @@ class ProductView extends StatelessWidget {
               Positioned(
                 top: 8,
                 right: 8,
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
+                child: Consumer<FavoritesProvider>(
+                  builder: (context, favoritesProvider, child) {
+                    final isFav = favoritesProvider.isFavorite(product);
+                    
+                    return Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: isFav ? buttonColor : Colors.white.withOpacity(0.9),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    padding: EdgeInsets.zero,
-                    icon: Icon(
-                      product.isFav ? Icons.favorite : Icons.favorite_border,
-                      size: 18,
-                      color: product.isFav ? buttonColor : textSecondary,
-                    ),
-                  ),
+                      child: IconButton(
+                        onPressed: () {
+                          favoritesProvider.toggleFavorite(product);
+                          
+                          // Show snackbar confirmation
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                isFav 
+                                  ? "${product.name} removido dos favoritos"
+                                  : "${product.name} adicionado aos favoritos!",
+                              ),
+                              backgroundColor: isFav ? Colors.red.shade600 : Colors.red.shade500,
+                              behavior: SnackBarBehavior.floating,
+                              duration: const Duration(seconds: 2),
+                              margin: const EdgeInsets.all(16),
+                            ),
+                          );
+                        },
+                        padding: EdgeInsets.zero,
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          size: 18,
+                          color: isFav ? Colors.white : textSecondary,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               
