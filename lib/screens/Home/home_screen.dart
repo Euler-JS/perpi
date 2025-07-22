@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perpi_app/models/product_details.dart';
 import 'package:perpi_app/screens/Common/product_view.dart';
+import 'package:perpi_app/screens/Product/product_detail_screen.dart';
 import 'package:perpi_app/screens/constants.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,90 +27,46 @@ class HomeScreen extends StatelessWidget {
               
               // Categories Section
               _buildCategoriesSection(),
-
-              _buildTopSalesSection(),
               
               // Special For You Section
               // _buildSpecialForYouSection(),
+              _buildTopSalesSection()
             ],
           ),
         ),
       ),
-    );
+  );
   }
 
-   Widget _buildHeader() {
-    return Container(
+  Widget _buildHeader() {
+    return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Menu and Logo
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: secondaryColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  Icons.menu,
-                  color: textPrimary,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(width: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "PERPI",
-                    style: TextStyle(
-                      color: accentColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Minimarket",
-                    style: TextStyle(
-                      color: buttonColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: secondaryColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.apps,
+              color: textPrimary,
+              size: 24,
+            ),
           ),
-          
-          // Notification and Profile
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: secondaryColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  Icons.notifications_outlined,
-                  color: textPrimary,
-                  size: 24,
-                ),
-              ),
-              const SizedBox(width: 10),
-              CircleAvatar(
-                radius: 22,
-                backgroundColor: accentColor,
-                child: const Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 24,
-                ),
-              ),
-            ],
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: secondaryColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.notifications_outlined,
+              color: textPrimary,
+              size: 24,
+            ),
           ),
         ],
       ),
@@ -123,7 +80,6 @@ class HomeScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: dividerColor),
       ),
       child: Row(
         children: [
@@ -135,7 +91,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 15),
           Expanded(
             child: Text(
-              "Procurar produtos...",
+              "Search...",
               style: TextStyle(
                 color: textSecondary,
                 fontSize: 16,
@@ -143,14 +99,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: buttonColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(
-              Icons.tune,
-              color: Colors.white,
+            child: Icon(
+              Icons.apps,
+              color: textPrimary,
               size: 20,
             ),
           ),
@@ -369,55 +325,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSpecialForYouSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Special For You",
-                style: TextStyle(
-                  color: textPrimary,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "See all",
-                style: TextStyle(
-                  color: textSecondary,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 20),
-        SizedBox(
-          height: 280,
-          child: ListView.builder(
-            itemCount: productItems.take(4).length,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            itemBuilder: (context, index) {
-              final products = productItems[index];
-              return Container(
-                width: 160,
-                margin: const EdgeInsets.only(right: 15),
-                child: _buildProductCard(products),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 30),
-      ],
-    );
-  }
-
 Widget _buildTopSalesSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,9 +382,68 @@ Widget _buildTopSalesSection() {
       ],
     );
   }
-  Widget _buildProductCard(ProductDetails product) {
-    return Container(
-      decoration: BoxDecoration(
+
+  Widget _buildSpecialForYouSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Special For You",
+                style: TextStyle(
+                  color: textPrimary,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "See all",
+                style: TextStyle(
+                  color: textSecondary,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        SizedBox(
+          height: 280,
+          child: ListView.builder(
+            itemCount: productItems.take(4).length,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            itemBuilder: (context, index) {
+              final products = productItems[index];
+              return Container(
+                width: 160,
+                margin: const EdgeInsets.only(right: 15),
+                child: _buildProductCard(context ,products),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 30),
+      ],
+    );
+  }
+
+ Widget _buildProductCard(BuildContext context, ProductDetails product) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: product),
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
         color: cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
@@ -628,7 +594,8 @@ Widget _buildTopSalesSection() {
             ),
           ),
         ],
-      ),
+    ),
+      )
     );
-  }
+}
 }

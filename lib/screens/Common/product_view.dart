@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perpi_app/models/product_details.dart';
 import 'package:perpi_app/screens/constants.dart';
+import 'package:perpi_app/screens/Product/product_detail_screen.dart';
 
 class ProductView extends StatelessWidget {
   final String imageUrl, title, price;
@@ -18,18 +19,27 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: cardBackground,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 5),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: product),
           ),
-        ],
-      ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: cardBackground,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -285,6 +295,7 @@ class ProductView extends StatelessWidget {
           ),
         ],
       ),
+      )
     );
   }
 }
