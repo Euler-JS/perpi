@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:perpi_app/screens/Favorites/favorite_screen.dart';
+import 'package:perpi_app/screens/Tracking/order_tracking_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:perpi_app/screens/Product/product_display_screen.dart';
 import 'package:perpi_app/screens/Cart/cart_screen.dart';
-import 'package:perpi_app/screens/Profile/profile_screen.dart';
 import 'package:perpi_app/providers/cart_provider.dart';
 import 'package:perpi_app/providers/favorites_provider.dart';
 import 'package:perpi_app/screens/constants.dart';
@@ -24,7 +24,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const HomeScreen(), 
     const ProductDisplayScreen(),
     const CartScreen(),
-    const ProfileScreen(),
+    // const ProfileScreen(),
+    const OrderTrackingScreen(),
     const FavoritesScreen(),
   ];
 
