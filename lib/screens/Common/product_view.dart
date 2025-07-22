@@ -165,14 +165,14 @@ class ProductView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Category
-                Text(
-                  product.category,
-                  style: TextStyle(
-                    color: accentColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                // Text(
+                //   product.category,
+                //   style: TextStyle(
+                //     color: accentColor,
+                //     fontSize: 12,
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                // ),
                 
                 const SizedBox(height: 4),
                 

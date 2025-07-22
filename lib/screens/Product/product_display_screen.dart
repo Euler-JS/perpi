@@ -68,14 +68,14 @@ class ProductDisplayScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              const SortBy(),
-              const SizedBox(height: 20),
-              GridView.builder(
-                shrinkWrap: true,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            const SortBy(),
+            const SizedBox(height: 20),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.only(bottom: 30),
                 physics: const BouncingScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, 
@@ -94,9 +94,8 @@ class ProductDisplayScreen extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 30),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
