@@ -7,92 +7,95 @@ class SortBy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 45,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
           Container(
-            width: 130,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
               color: buttonColor,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: buttonColor.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
-            child: const Center(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 15,
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.tune, color: Colors.white, size: 18),
+                SizedBox(width: 8),
+                Text(
+                  "Filtros",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.white,
                   ),
-                  Icon(Icons.filter_list, color: Colors.black),
-                  SizedBox(width: 8),
-                  Text(
-                    "Sort by",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
-          const SizedBox(width: 20,),
+          const SizedBox(width: 15),
           Container(
-            width: 85,
-            padding: const EdgeInsets.only(right: 10,left: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white10,
-              borderRadius: BorderRadius.circular(20),
+              color: cardBackground,
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: dividerColor),
             ),
-            child: const Center(
-              child:   Text(
-              "Shoes",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.white,
+            child: Center(
+              child: Text(
+                "Ofertas",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: textPrimary,
+                ),
               ),
-            )
             ),
           ),
-            const SizedBox(
-            width: 30,
-          ),
+          const SizedBox(width: 15),
           Container(
-            width: 100,
-            padding: const EdgeInsets.only(right: 10, left: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
+              color: cardBackground,
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: dividerColor),
             ),
-            child:  Center(
-                child: Text(
-              "FW 2021",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: buttonColor,
+            child: Center(
+              child: Text(
+                "Populares",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: textPrimary,
+                ),
               ),
-            )),
+            ),
           ),
-            const SizedBox(
-            width: 20,
-          ),
-           Container(
-            width: 85,
-            padding: const EdgeInsets.only(right: 10, left: 10),
+          const SizedBox(width: 15),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white10,
-              borderRadius: BorderRadius.circular(20),
+              color: cardBackground,
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(color: dividerColor),
             ),
-            child: const Center(
-                child: Text(
-              "News",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.white,
+            child: Center(
+              child: Text(
+                "Novos",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: textPrimary,
+                ),
               ),
-            )),
+            ),
           ),
         ],
       ),
