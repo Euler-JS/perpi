@@ -14,6 +14,7 @@ class ProductDisplayScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: primaryColor,
         surfaceTintColor: primaryColor,
+        toolbarHeight: 100,
         elevation: 0,
         centerTitle: true,
         title: Text(
