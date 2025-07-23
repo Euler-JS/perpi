@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perpi_app/screens/Favorites/favorite_screen.dart';
 import 'package:perpi_app/screens/Tracking/order_tracking_screen.dart';
+import 'package:perpi_app/screens/Tracking/tracking_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:perpi_app/screens/Product/product_display_screen.dart';
 import 'package:perpi_app/screens/Cart/cart_screen.dart';
@@ -25,7 +26,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const ProductDisplayScreen(),
     const CartScreen(),
     // const ProfileScreen(),
-    const OrderTrackingScreen(),
+    // const OrderTrackingScreen(),
+    const TrackingScreen(),
     const FavoritesScreen(),
   ];
 
