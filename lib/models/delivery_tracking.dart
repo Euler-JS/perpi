@@ -1,4 +1,6 @@
 // lib/models/delivery_tracking.dart
+import 'package:latlong2/latlong.dart';
+
 class DeliveryTracking {
   String orderId;
   String driverName;
@@ -43,6 +45,9 @@ class DriverLocation {
     required this.address,
     this.isMoving = false,
   });
+
+  // Getter para compatibilidade com Leaflet
+  LatLng get position => LatLng(latitude, longitude);
 }
 
 class CustomerLocation {
@@ -55,6 +60,9 @@ class CustomerLocation {
     required this.longitude,
     required this.address,
   });
+
+  // Getter para compatibilidade com Leaflet
+  LatLng get position => LatLng(latitude, longitude);
 }
 
 class TrackingStep {
@@ -96,7 +104,7 @@ enum DeliveryStatus {
   cancelled
 }
 
-// Dados de exemplo para demonstração
+// Dados de exemplo para demonstração (Maputo, Moçambique)
 DeliveryTracking mockDeliveryTracking = DeliveryTracking(
   orderId: "#NEJ20089934122231",
   driverName: "João Silva",
@@ -108,13 +116,13 @@ DeliveryTracking mockDeliveryTracking = DeliveryTracking(
   totalAmount: 845.50,
   paymentMethod: "MPesa",
   driverLocation: DriverLocation(
-    latitude: -25.9692,
+    latitude: -25.9692, // Centro de Maputo
     longitude: 32.5732,
     address: "Avenida 24 de Julho",
     isMoving: true,
   ),
   customerLocation: CustomerLocation(
-    latitude: -25.9653,
+    latitude: -25.9653, // Destino em Maputo
     longitude: 32.5892,
     address: "Avenida Julius Nyerere, 1234",
   ),
